@@ -1,0 +1,55 @@
+/* Generic Layout */
+* {
+  display: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  background-image: url(../images/tabletop.png);
+}
+
+/* Table Formatting */
+table, th, td {
+  text-align: center;
+  border-bottom: 1px solid #89A7D1;
+  border-collapse: collapse;
+}
+
+th {
+  border-bottom: 3px solid #FD6362;
+}
+
+th, td {
+  padding: 1em;
+}
+
+/* Notepad */
+main {
+  display: flex;
+  justify-content: flex-end;
+  background: #FFF6D5;
+  margin-top: 25vh;
+  width: 50vw;
+  height: 75vh;
+}
+
+table {
+  width: 90%;
+  border-left: 3px solid #FD6362;
+}
+
+div.holes {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 10%;
+}
+
+div.hole {
+  width: 2vw;
+  height: 2vw;
+  border-radius: 50%;
+  background-image: url(../images/tabletop.png);
+}
