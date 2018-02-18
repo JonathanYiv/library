@@ -53,3 +53,18 @@ div.hole {
   border-radius: 50%;
   background-image: url(../images/tabletop.png);
 }
+
+/* Book Animation */
+tr.book {
+  transition: background-color 1s,font-size 1s;
+}
+
+tr.book:hover {
+  font-size: 1.5em;
+  background-color: #FD6362;
+}
+
+/* Button Styling */
+button {
+  padding: 0 1em 0 1em;
+}
