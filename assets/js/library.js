@@ -1,8 +1,9 @@
 let myLibrary = []
+const libraryPage = document.querySelector("#library");
 
 function Book(title, author, pages, read) {
-  this.author = author;
   this.title = title;
+  this.author = author;
   this.pages = pages;
   this.read = read;
 }
@@ -11,13 +12,19 @@ function addBookToLibrary() {
 
 }
 
-// loops through myLibrary and displays each book
-// on the page
-const libraryPage = document.querySelector("#library");
+function removeBookFromLibrary() {
+
+}
 
 function render() {
-  myLibrary.forEach(book => {
-    const row = document.createElement("tr");
+  const tableBody = document.querySelector('tbody');
+  console.log(tableBody);
+  while(tableBody.lastChild.id !== "header") {
+    tableBody.removeChild(tableBody.lastChild);
+  }
+
+  myLibrary.forEach((book, index) => {
+    const row = libraryPage.insertRow();
     row.classList.add("book");
 
     const titleCell = row.insertCell();
@@ -38,20 +45,18 @@ function render() {
     readStatusButton.appendChild(readStatus);
     readStatusCell.appendChild(readStatusButton);
 
-    libraryPage.appendChild(row);
+    readStatusButton.dataset.bookNumber = index;
+    readStatusButton.addEventListener("click", book.toggleReadStatus);
   });
 }
 
 Book.prototype.toggleReadStatus = function() {
-  this.read = !this.read;
+  console.log(this.dataset.bookNumber);
+  myLibrary[this.dataset.bookNumber].read = !myLibrary[this.dataset.bookNumber].read;
+  render();
 }
 
-// Hint: You will need to associate your
-// DOM elements with the actual book objects
-// in some way. One easy solution is giving
-// them a data-attribute that corresponds
-// to the index of the library array.
-
+// Example Books
 const philosophersStone = new Book("Harry Potter and the Philosopher's Stone",
                                    "J.K. Rowling",
                                    223,
