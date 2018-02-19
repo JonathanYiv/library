@@ -24,7 +24,8 @@ function addBookToLibrary() {
 }
 
 function removeBookFromLibrary() {
-
+  delete myLibrary[this.dataset.bookNumber];
+  render();
 }
 
 function render() {
@@ -52,18 +53,24 @@ function render() {
     const readStatusCell = row.insertCell();
     const readStatusButton = document.createElement("button");
     const readStatus = document.createTextNode(book.read ? "Yes" : "No");
+    const removeButton = document.createElement("button");
+    const removeButtonText = document.createTextNode("Remove");
     readStatusButton.appendChild(readStatus);
+    removeButton.appendChild(removeButtonText);
     readStatusCell.appendChild(readStatusButton);
+    readStatusCell.appendChild(removeButton);
 
     readStatusButton.dataset.bookNumber = index;
     readStatusButton.addEventListener("click", book.toggleReadStatus);
+
+    removeButton.dataset.bookNumber = index;
+    removeButton.addEventListener("click", removeBookFromLibrary);
 
     tableBody.appendChild(row);
   });
 }
 
 Book.prototype.toggleReadStatus = function() {
-  console.log(this.dataset.bookNumber);
   myLibrary[this.dataset.bookNumber].read = !myLibrary[this.dataset.bookNumber].read;
   render();
 }
