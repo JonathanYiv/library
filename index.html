@@ -17,16 +17,31 @@
         <div class="hole"></div>
       </div>
       <table id="library">
-        <tbody>
-          <tr id="header">
+        <thead>
+          <tr>
             <th>Title</th>
             <th>Author</th>
             <th>Pages</th>
             <th>Read?</th>
           </tr>
+        </thead>
+        <tbody id="book-list">
+        </tbody>
+        <tbody>
+          <td>
+            <input type="text" id="title">
+          </td>
+          <td>
+            <input type="text" size="10" id="author">
+          </td>
+          <td>
+            <input type="text" size="5" id="pages">
+          </td>
+          <td>
+            <button id="add">Add Book</button>
+          </td>
         </tbody>
       </table>
-      <!-- New Book Button -->
       <!-- Remove Book Button -->
     </main>
     <script src="assets/js/library.js"></script>

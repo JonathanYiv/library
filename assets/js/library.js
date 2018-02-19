@@ -1,6 +1,9 @@
 let myLibrary = []
 const libraryPage = document.querySelector("#library");
 
+const addButton = document.querySelector("#add");
+addButton.addEventListener("click", addBookToLibrary);
+
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
@@ -9,7 +12,15 @@ function Book(title, author, pages, read) {
 }
 
 function addBookToLibrary() {
-
+  let title = document.getElementById('title').value;
+  let author = document.getElementById('author').value;
+  let pages = document.getElementById('pages').value;
+  const newBook = new Book(title, author, pages, false);
+  myLibrary.push(newBook);
+  render();
+  document.getElementById('title').value = "";
+  document.getElementById('author').value = "";
+  document.getElementById('pages').value = "";
 }
 
 function removeBookFromLibrary() {
@@ -17,14 +28,13 @@ function removeBookFromLibrary() {
 }
 
 function render() {
-  const tableBody = document.querySelector('tbody');
-  console.log(tableBody);
-  while(tableBody.lastChild.id !== "header") {
-    tableBody.removeChild(tableBody.lastChild);
+  const tableBody = document.querySelector('#book-list');
+  while (tableBody.firstChild) {
+    tableBody.removeChild(tableBody.firstChild);
   }
 
   myLibrary.forEach((book, index) => {
-    const row = libraryPage.insertRow();
+    const row = document.createElement("tr");
     row.classList.add("book");
 
     const titleCell = row.insertCell();
@@ -47,6 +57,8 @@ function render() {
 
     readStatusButton.dataset.bookNumber = index;
     readStatusButton.addEventListener("click", book.toggleReadStatus);
+
+    tableBody.appendChild(row);
   });
 }
 
