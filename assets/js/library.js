@@ -1,3 +1,23 @@
+document.addEventListener("DOMContentLoaded", function() {
+  if(localStorage.length > 0) {
+    restore();
+  } else {
+    const philosophersStone = new Book("Harry Potter and the Philosopher's Stone",
+                                   "J.K. Rowling",
+                                   223,
+                                   true);
+
+    const chamberOfSecrets = new Book("Harry Potter and the Chamber of Secrets",
+                                      "J.K. Rowling",
+                                      251,
+                                      true);
+
+    myLibrary.push(philosophersStone, chamberOfSecrets);
+
+    render();
+  }
+});
+
 let myLibrary = []
 const libraryPage = document.querySelector("#library");
 
@@ -11,6 +31,29 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
+function store() {
+  localStorage.clear();
+  myLibrary.forEach((book, index) => {
+    localStorage.setItem(`${index}-title`, book.title);
+    localStorage.setItem(`${index}-author`, book.author);
+    localStorage.setItem(`${index}-pages`, book.pages);
+    localStorage.setItem(`${index}-read-status`, book.read);
+  });
+}
+
+function restore() {
+  let i = 0;
+  while(localStorage.getItem(`${i}-title`)) {
+    const book = new Book(localStorage.getItem(`${i}-title`),
+                          localStorage.getItem(`${i}-author`),
+                          localStorage.getItem(`${i}-pages`),
+                          localStorage.getItem(`${i}-read-status`));
+    myLibrary.push(book);
+    i++;
+  }
+  render();
+}
+
 function addBookToLibrary() {
   let title = document.getElementById('title').value;
   let author = document.getElementById('author').value;
@@ -18,6 +61,7 @@ function addBookToLibrary() {
   const newBook = new Book(title, author, pages, false);
   myLibrary.push(newBook);
   render();
+  store();
   document.getElementById('title').value = "";
   document.getElementById('author').value = "";
   document.getElementById('pages').value = "";
@@ -26,6 +70,7 @@ function addBookToLibrary() {
 function removeBookFromLibrary() {
   delete myLibrary[this.dataset.bookNumber];
   render();
+  store();
 }
 
 function render() {
@@ -73,19 +118,7 @@ function render() {
 Book.prototype.toggleReadStatus = function() {
   myLibrary[this.dataset.bookNumber].read = !myLibrary[this.dataset.bookNumber].read;
   render();
+  store();
 }
 
 // Example Books
-const philosophersStone = new Book("Harry Potter and the Philosopher's Stone",
-                                   "J.K. Rowling",
-                                   223,
-                                   true);
-
-const chamberOfSecrets = new Book("Harry Potter and the Chamber of Secrets",
-                                  "J.K. Rowling",
-                                  251,
-                                  true);
-
-myLibrary.push(philosophersStone, chamberOfSecrets);
-
-render();

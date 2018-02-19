@@ -72,3 +72,8 @@ tr.book:hover {
 button {
   padding: 0 1em 0 1em;
 }
+
+/* Form Styling */
+input[type=number] {
+  width: 70px;
+}
