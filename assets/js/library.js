@@ -24,11 +24,13 @@ const libraryPage = document.querySelector("#library");
 const addButton = document.querySelector("#add");
 addButton.addEventListener("click", addBookToLibrary);
 
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
 }
 
 function store() {
@@ -42,7 +44,8 @@ function store() {
 }
 
 function restore() {
-  let i = 0;
+  let i = 0; // Ah, I see. A bug with the index always getting increased but the i here
+  // always starting at 0 messes with the view, but not the LocalStorage
   while(localStorage.getItem(`${i}-title`)) {
     const book = new Book(localStorage.getItem(`${i}-title`),
                           localStorage.getItem(`${i}-author`),
